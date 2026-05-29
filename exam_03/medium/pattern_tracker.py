@@ -3,6 +3,8 @@
 
 def pattern_tracker(text: str) -> int:
     count = 0
+    if text == "" or text is None:
+        return count
     for i, ch in enumerate(text):
         if i == len(text) - 1:
             return count
@@ -12,8 +14,3 @@ def pattern_tracker(text: str) -> int:
                 digit2 = int(text[i + 1])
                 if digit == digit2 - 1:
                     count += 1
-
-
-source = "01234567"
-result = pattern_tracker(source)
-print(result)
