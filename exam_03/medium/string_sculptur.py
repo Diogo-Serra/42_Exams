@@ -17,10 +17,3 @@ def string_sculptor(text: str) -> str:
         else:
             stack.append(ch)
     return ''.join(stack)
-
-
-print(string_sculptor("hello"))
-print(string_sculptor("Hello World"))
-print(string_sculptor("aBc123def"))
-print(string_sculptor("Python3.9!"))
-print(string_sculptor(""))
