@@ -1,23 +1,14 @@
 # Echo validator
 
 def echo_validator(text: str) -> bool:
-    if not text:
+    if text == "":
         return False
-    for x in text:
-        if x.isdigit():
-            return False
-    text = text.replace(' ', '').upper()
-    j = len(text) - 1
-    for i, x in enumerate(text):
-        if text[i] != text[j]:
-            return False
-        j -= 1
-    return True
+    return text[::-1].replace(' ', '').upper() == text.replace(' ', '').upper()
 
 
 if __name__ == "__main__":
 
-    print(echo_validator("racecar"))
+    print(echo_validator("racecar1"))
 #    True
     print(echo_validator("A man a plan a canal Panama"))
 #    True
