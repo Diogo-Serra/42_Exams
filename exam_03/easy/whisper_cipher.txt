@@ -4,7 +4,7 @@ py_whisper_cipher
 py_whisper_cipher.py
 Assignment
 
-Write a function that creates a simple cipher by shifting letters in a st
+Write a function that creates a simple cipher by shifting letters in a string
 by a given amount. Non-alphabetic characters should remain unchanged.
 
 Function signature
