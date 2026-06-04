@@ -1,26 +1,24 @@
 # Whisper_chyper
 
 
-def get_position(char: str, shift: int) -> str:
+def whisper_cipher(char: str, shift: int) -> str:
     from string import ascii_lowercase, ascii_uppercase
-    if char.isupper():
-        index = ascii_uppercase.index(char)
-        return ascii_uppercase[(index + shift) % len(ascii_uppercase)]
-    else:
-        index = ascii_lowercase.index(char)
-        return ascii_lowercase[(index + shift) % len(ascii_lowercase)]
-
-
-def whisper_cipher(text: str, shift: int) -> str:
-    output = ""
-
-    for x in text:
-        if x.isalpha():
-            output += get_position(x, shift)
+    stack = []
+    for ch in char:
+        if ch.isalpha():
+            if ch.isupper():
+                index = ascii_uppercase.index(ch)
+                stack.append(ascii_uppercase[(
+                    index + shift) % len(ascii_uppercase)])
+            else:
+                index = ascii_lowercase.index(ch)
+                stack.append(ascii_lowercase[(
+                    index + shift) % len(ascii_lowercase)])
         else:
-            output += x
+            stack.append(ch)
 
-    return output
+    _string = ''.join(stack)
+    return _string
 
 
 if __name__ == "__main__":
