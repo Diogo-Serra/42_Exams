@@ -1,18 +1,6 @@
 # Mirror Matrix
 
-
 def mirror_matrix(matrix: list[list[int]]) -> list[list[int]]:
-    mirror_matrix: list[list[int]] = []
-
-    for _list in matrix:
-        mirror_matrix.extend(reversed(_list))
-    return mirror_matrix
-
-
-def main():
-    matrix: list[list[int]] = [[1, 2, 3], [4, 5, 6]]
-    _mirror_matrix = mirror_matrix(matrix)
-    print(_mirror_matrix)
-
-
-main()
+    for row in matrix:
+        row.sort(reverse=True)
+    return matrix
