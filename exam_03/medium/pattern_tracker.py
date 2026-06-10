@@ -10,6 +10,3 @@ def pattern_tracker(text: str) -> int:
             if text[i + 1].isdigit() and int(text[i + 1]) == digit1 + 1:
                 count += 1
     return count
-
-
-print(pattern_tracker('01234567'))
