@@ -1,41 +1,70 @@
-Assignment
-
-Write a function that maps a constellation of stars onto a grid and returns the visual representation as a list of strings.
-
-The function should:
-- Take a list of star coordinates as tuples (row, col) and grid size as integer
-- Return a list of strings representing the grid
-- Stars are represented by '*' and empty spaces by '.'
-- Grid coordinates start from (0, 0) at top-left
-- Ignore coordinates outside the grid boundaries
-- Handle duplicate coordinates (star appears only once)
-
-Function signature
-
+# Constellation Mapper
+ 
+## Description
+ 
+Write a function that maps a constellation of stars onto a square grid and returns its visual representation as a list of strings.
+ 
+Each star is given as a `(row, col)` tuple. Stars are drawn as `*` and empty cells as `.`. The grid origin `(0, 0)` is the top-left cell.
+ 
+## Function Signature
+ 
+```python
 def constellation_mapper(stars: list[tuple[int, int]], dim: int) -> list[str]:
-
-Examples
-Input
-constellation_mapper([(0, 0), (1, 1), (2, 2)], 3)
-Output
-['*..', '.*.', '..*']
-Input
-constellation_mapper([(1, 1), (0, 1), (2, 1), (1, 0), (1, 2)], 3)
-Output
-['.*.', '***', '.*.']
-Input
-constellation_mapper([], 2)
-Output
-['..', '..']
-Input
-constellation_mapper([(0, 0), (0, 0), (1, 1)], 2)
-Output
-['*.', '.*']
-Input
-constellation_mapper([(0, 0), (5, 5)], 3)
-Output
-['*..', '...', '...']
-Input
-constellation_mapper([(1, 0), (1, 1), (1, 2)], 3)
-Output
-['...', '***', '...']
+```
+ 
+## Rules
+ 
+- The function takes a list of star coordinates as `(row, col)` tuples and the grid size `dim` as an integer.
+- It returns a list of `dim` strings, each of length `dim`.
+- Stars are represented by `*` and empty spaces by `.`.
+- Coordinates start at `(0, 0)` in the top-left corner.
+- Coordinates outside the grid boundaries are ignored.
+- Duplicate coordinates produce a single star.
+## Examples
+ 
+| Call | Output |
+| --- | --- |
+| `constellation_mapper([(0, 0), (1, 1), (2, 2)], 3)` | `['*..', '.*.', '..*']` |
+| `constellation_mapper([(1, 1), (0, 1), (2, 1), (1, 0), (1, 2)], 3)` | `['.*.', '***', '.*.']` |
+| `constellation_mapper([], 2)` | `['..', '..']` |
+| `constellation_mapper([(0, 0), (0, 0), (1, 1)], 2)` | `['*.', '.*']` |
+| `constellation_mapper([(0, 0), (5, 5)], 3)` | `['*..', '...', '...']` |
+| `constellation_mapper([(1, 0), (1, 1), (1, 2)], 3)` | `['...', '***', '...']` |
+ 
+## Solution
+ 
+```python
+def constellation_mapper(stars: list[tuple[int, int]], dim: int) -> list[str]:
+    """Map a list of star coordinates onto a square grid.
+ 
+    Args:
+        stars: Star positions as (row, col) tuples, with (0, 0) at the
+            top-left corner.
+        dim: The width and height of the square grid.
+ 
+    Returns:
+        A list of dim strings representing the grid, where '*' marks a
+        star and '.' marks an empty cell.
+    """
+    grid = [["."] * dim for _ in range(dim)]
+ 
+    for row, col in stars:
+        if 0 <= row < dim and 0 <= col < dim:
+            grid[row][col] = "*"
+ 
+    return ["".join(line) for line in grid]
+```
+ 
+## Explanation
+ 
+1. The function creates a `dim` by `dim` grid filled with `.`.
+2. For each star, it checks that both coordinates lie within `0` and `dim - 1`. Stars outside the grid, including those with negative coordinates, are skipped.
+3. Valid stars set their cell to `*`. Setting the same cell twice has no additional effect, so duplicates are handled without extra logic.
+4. Each row is joined into a string and the list of rows is returned.
+## Complexity
+ 
+- **Time:** O(dim² + s), where `s` is the number of stars (grid creation plus one pass over the stars).
+- **Space:** O(dim²) for the grid.
+## Notes
+ 
+The grid is built from a list of lists rather than a list of strings because strings are immutable in Python. Using `[["."] * dim for _ in range(dim)]` also avoids the common mistake of `[["."] * dim] * dim`, which would make every row share the same list.

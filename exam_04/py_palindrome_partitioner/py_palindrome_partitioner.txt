@@ -1,32 +1,97 @@
-Moulinette Rules & Constraints
-Allowed functions: None. Use only permitted built-in functions to avoid getting 0 on exam day.
-Assignment
+# Palindrome Partitioner
 
-Given a string `s`, find the minimum number of cuts needed to partition it such that every resulting substring is a palindrome.
+## Moulinette Rules & Constraints
 
-A cut divides the string between two characters. With `c` cuts, the string is split into `c + 1` substrings. We want the minimum number of cuts `c` such that all parts are palindromes.
+**Allowed functions:** None. Use only permitted built-in operations to avoid getting 0 on exam day.
 
-Return this minimum number of cuts (an integer).
+## Assignment
 
-Constraints:
-- An empty string or a string of length 1 is already a palindrome -> 0 cuts.
-- If the entire string is already a palindrome -> 0 cuts.
-- In the worst case (all characters are distinct), the result is len(s) - 1 cuts.
+Given a string `s`, find the minimum number of cuts needed to split it into substrings where every substring is a palindrome.
 
-Function signature
+A palindrome reads the same forwards and backwards.
 
+The function should:
+- Return the minimum number of cuts needed.
+- Return `0` if the string is empty or has only one character.
+- Return `0` if the entire string is already a palindrome.
+- Handle strings containing repeated or distinct characters.
+
+## Algorithm requirements
+
+- Check whether substrings are palindromes.
+- Use dynamic programming to find the minimum cuts.
+- Build the solution from smaller substrings to larger ones.
+- Avoid unnecessary repeated calculations.
+
+## Edge cases to handle
+
+- Empty string: return `0`.
+- Single character: return `0`.
+- Already a palindrome: return `0`.
+- All distinct characters: return `len(s) - 1` cuts.
+- Repeated characters: find the minimum cuts needed.
+
+## Function signature
+
+```python
 def palindrome_partitioner(s: str) -> int:
+```
 
-Examples
-Input
+## Examples
+
+**Input**
+```python
 palindrome_partitioner("aab")
-Output
+```
+
+**Output**
+```python
 1
-Input
+```
+
+**Input**
+```python
 palindrome_partitioner("aba")
-Output
+```
+
+**Output**
+```python
 0
-Input
+```
+
+**Input**
+```python
 palindrome_partitioner("abc")
-Output
+```
+
+**Output**
+```python
 2
+```
+
+**Input**
+```python
+palindrome_partitioner("")
+```
+
+**Output**
+```python
+0
+```
+
+**Input**
+```python
+palindrome_partitioner("aabb")
+```
+
+**Output**
+```python
+1
+```
+
+## Notes
+
+- **Palindrome check:** A substring is a palindrome if it reads the same forwards and backwards.
+- **Dynamic programming:** Store the minimum cuts needed for each prefix of the string.
+- **Minimum cuts:** If a substring is a palindrome, consider whether cutting before it gives a better result.
+- **Complexity:** A straightforward dynamic programming solution takes \(O(n^2)\) time and \(O(n^2)\) space, where \(n\) is the string length.

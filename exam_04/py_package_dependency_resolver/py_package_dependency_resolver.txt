@@ -1,56 +1,128 @@
-Moulinette Rules & Constraints
-Forbidden built-ins / modules: graphlib.TopologicalSorter. Use only permitted built-in functions to avoid getting 0 on exam day.
-Assignment
+# Merge Sorted Lists
 
-Write a function that determines a valid package installation order by resolving dependencies. Use topological sorting to ensure dependencies are installed before the packages that require them.
+## Moulinette Rules & Constraints
+
+**Forbidden built-ins / modules:** `sorted()`, `.sort()`, `heapq.merge()`. Use only permitted built-in functions to avoid getting 0 on exam day.
+
+## Assignment
+
+Write a function that merges multiple sorted integer lists into a single sorted list while preserving ascending order.
 
 The function should:
-- Take a dictionary where keys are package names and values are lists of dependencies
-- Return packages in installation order (dependencies first)
-- Return empty list if no valid order exists (circular dependencies)
-- Handle empty input and isolated dependency chains
-- Ignore references to packages not in the input dictionary
+- Take a list of sorted integer lists as input.
+- Return a single list containing all elements in ascending order.
+- Preserve all duplicate elements, including duplicates across different lists.
+- Handle empty lists and negative numbers correctly.
+- Return an empty list if the input is empty or contains only empty lists.
+- Return a copy of the original list when only one non-empty list is provided.
+- Avoid modifying the original input lists.
+- Maintain optimal efficiency for large inputs.
 
-Algorithm requirements:
-- Use topological sorting (e.g., Kahn's algorithm)
-- Process packages with no remaining dependencies first
-- Ensure deterministic output when multiple valid orders exist
+## Algorithm requirements
 
-Edge cases to handle:
-- Empty input: return empty list
-- Packages with no dependencies: include in output first
-- Multiple independent chains: process all chains
-- Circular dependencies: return empty list
-- Non-existent dependencies: ignore missing packages
-- Self-dependencies: return empty list
+- Use a two-pointer technique to merge two sorted lists.
+- Merge neighbouring pairs of lists in rounds.
+- Carry any unpaired list into the next round.
+- Continue until only one merged list remains.
+- Use `<=` when comparing elements to preserve duplicates and maintain stable ordering.
+- Do not use any forbidden sorting functions or modules.
 
-Notes:
-- For deterministic output, process packages alphabetically when choices exist
-- A package cannot be installed until all its dependencies are installed
-- If any circular dependency exists, no valid installation order is possible
+## Edge cases to handle
 
-Function signature
+- Empty input: return an empty list.
+- Only empty lists: return an empty list.
+- Single non-empty list: return a copy of that list.
+- Duplicate elements: preserve every occurrence.
+- Negative numbers: maintain correct ascending order.
+- Lists of different lengths: merge all elements correctly.
+- Multiple lists containing the same values: preserve all duplicates.
+- Original input: do not modify any input list.
 
-def package_dependency_resolver(packages: dict[str, list[str]]) -> list[str]:
+## Function signature
 
-Examples
-Input
-package_dependency_resolver({"app": ["database"], "database": ["driver"], "driver": []})
-Output
-["driver", "database", "app"]
-Input
-package_dependency_resolver({"A": [], "B": ["A"], "C": ["A", "B"]})
-Output
-["A", "B", "C"]
-Input
-package_dependency_resolver({})
-Output
+```python
+def merge_sorted_lists(lists: list[list[int]]) -> list[int]:
+```
+
+## Examples
+
+**Input**
+```python
+merge_sorted_lists([[1, 3, 5], [2, 4, 6]])
+```
+
+**Output**
+```python
+[1, 2, 3, 4, 5, 6]
+```
+
+**Input**
+```python
+merge_sorted_lists([[1, 5, 9], [2, 3, 8], [4, 6, 7]])
+```
+
+**Output**
+```python
+[1, 2, 3, 4, 5, 6, 7, 8, 9]
+```
+
+**Input**
+```python
+merge_sorted_lists([[1, 1, 2], [2, 3, 3]])
+```
+
+**Output**
+```python
+[1, 1, 2, 2, 3, 3]
+```
+
+**Input**
+```python
+merge_sorted_lists([])
+```
+
+**Output**
+```python
 []
-Input
-package_dependency_resolver({"X": ["Y"], "Y": ["X"]})
-Output
-[]
-Input
-package_dependency_resolver({"web": [], "api": [], "frontend": ["web"], "backend": ["api"]})
-Output
-["api", "web", "backend", "frontend"]
+```
+
+**Input**
+```python
+merge_sorted_lists([[], [1, 2, 3], []])
+```
+
+**Output**
+```python
+[1, 2, 3]
+```
+
+**Input**
+```python
+merge_sorted_lists([[-5, -1, 0], [-3, 2, 4]])
+```
+
+**Output**
+```python
+[-5, -3, -1, 0, 2, 4]
+```
+
+**Input**
+```python
+merge_sorted_lists([[10], [10], [10]])
+```
+
+**Output**
+```python
+[10, 10, 10]
+```
+
+## Notes
+
+- **Two-pointer merging:** Maintain one pointer for each input list and compare their current elements, appending the smaller element to the result.
+- **Pairwise merging:** Merge neighbouring lists in rounds instead of merging each new list into one growing result. This avoids repeatedly processing the entire accumulated output.
+- **Unpaired lists:** If a round contains an odd number of lists, carry the final list into the next round unchanged.
+- **Input preservation:** Copy the non-empty input lists before merging so that the original input is never modified.
+- **Duplicates:** Never skip equal values; append each occurrence independently.
+- **Complexity:** If \(N\) is the total number of elements and \(k\) is the number of non-empty lists, the time complexity is **\(O(N \log k)\)** and the auxiliary space complexity is **\(O(N)\)**, excluding the input.
+
+The key exam technique is to **combine two-pointer merging with divide-and-conquer**, achieving efficient merging without using any built-in sorting functions.

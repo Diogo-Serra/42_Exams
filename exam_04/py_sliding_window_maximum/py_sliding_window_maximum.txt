@@ -1,46 +1,115 @@
-Moulinette Rules & Constraints
-Allowed functions: None. Use only permitted built-in functions to avoid getting 0 on exam day.
-Assignment
+# Sliding Window Maximum
 
-Write a function that finds the maximum element in each sliding window of size k in an array. Return a list of maximums for each window position.
+## Moulinette Rules & Constraints
+
+**Allowed functions:** None. Use only permitted built-in operations to avoid getting 0 on exam day.
+
+## Assignment
+
+Write a function that finds the maximum element in every sliding window of size `k` in an array.
 
 The function should:
-- Slide a window of size k through the array
-- Find the maximum element in each window position
-- Return a list of maximum values
-- Handle edge cases (empty array, k <= 0, k > array length)
-- Return empty list for invalid inputs
+- Slide a window of size `k` through the array.
+- Find the maximum value in each window.
+- Return a list of maximum values.
+- Return an empty list for invalid inputs.
+- Handle empty arrays and invalid window sizes.
 
-Function signature
+## Algorithm requirements
 
+- Process each window from left to right.
+- Keep track of the maximum value for every window.
+- Return one maximum for each valid window position.
+- Handle all edge cases correctly.
+
+## Edge cases to handle
+
+- Empty array: return `[]`.
+- `k <= 0`: return `[]`.
+- `k > len(nums)`: return `[]`.
+- `k == 1`: return a copy of the original list.
+- `k == len(nums)`: return a list containing the overall maximum.
+
+## Function signature
+
+```python
 def sliding_window_maximum(nums: list[int], k: int) -> list[int]:
+```
 
-Examples
-Input
+## Examples
+
+**Input**
+```python
 sliding_window_maximum([1, 3, -1, -3, 5, 3, 6, 7], 3)
-Output
+```
+
+**Output**
+```python
 [3, 3, 5, 5, 6, 7]
-Input
+```
+
+**Input**
+```python
 sliding_window_maximum([1, 2, 3, 4, 5], 2)
-Output
+```
+
+**Output**
+```python
 [2, 3, 4, 5]
-Input
+```
+
+**Input**
+```python
 sliding_window_maximum([5, 4, 3, 2, 1], 1)
-Output
+```
+
+**Output**
+```python
 [5, 4, 3, 2, 1]
-Input
+```
+
+**Input**
+```python
 sliding_window_maximum([1, 2, 3], 3)
-Output
+```
+
+**Output**
+```python
 [3]
-Input
+```
+
+**Input**
+```python
 sliding_window_maximum([1, 2, 3], 4)
-Output
+```
+
+**Output**
+```python
 []
-Input
+```
+
+**Input**
+```python
 sliding_window_maximum([], 2)
-Output
+```
+
+**Output**
+```python
 []
-Input
+```
+
+**Input**
+```python
 sliding_window_maximum([1, 2, 3], 0)
-Output
+```
+
+**Output**
+```python
 []
+```
+
+## Notes
+
+- A sliding window is a fixed-size section of the array that moves one position at a time.
+- For each valid window, return its largest element.
+- A deque-based solution runs in **O(n)** time and **O(k)** space, making it the standard efficient approach for this problem.
