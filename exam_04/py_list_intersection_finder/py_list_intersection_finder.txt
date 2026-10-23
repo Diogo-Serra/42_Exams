@@ -31,30 +31,6 @@ def list_intersection_finder(lists: list[list[int]]) -> list[int]:
  
 ## Solution
  
-```python
-def list_intersection_finder(lists: list[list[int]]) -> list[int]:
-    """Find the elements common to all of the given lists.
- 
-    Args:
-        lists: A list of sorted integer lists.
- 
-    Returns:
-        A sorted list, without duplicates, of the integers that appear
-        in every input list. Returns an empty list if there are no input
-        lists or if any of them is empty.
-    """
-    if not lists:
-        return []
- 
-    common = set(lists[0])
-    for current in lists[1:]:
-        common &= set(current)
-        if not common:
-            return []
- 
-    return sorted(common)
-```
- 
 ## Explanation
  
 1. If no lists are provided, the intersection is empty.
