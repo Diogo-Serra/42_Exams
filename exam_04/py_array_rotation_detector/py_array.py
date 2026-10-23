@@ -1,8 +1,3 @@
-def shift(list):
-    list3: list = []
-    for d in list[::-1]:
-        list3.append(d)
-    return list3
 
 def array_rotation(list1: list, list2: list):
     listfinal = []
@@ -11,10 +6,13 @@ def array_rotation(list1: list, list2: list):
     if len(list1) != len(list2):
         return False
     rotations = [list1[-k:] + list1[:-k] for k in range(len(list1))]
-    print(rotations)
+    i = 0
     for r in rotations:
+        print(r)
         if r == list2:
-            return True
+            i += 1
+    if i == 1:
+        return True
     return False
 
 
