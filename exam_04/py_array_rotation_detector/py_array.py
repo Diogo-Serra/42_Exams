@@ -17,4 +17,3 @@ def array_rotation(list1: list, list2: list):
 
 
 print(array_rotation([1, 2, 3], [3, 1, 2]))
-
