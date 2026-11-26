@@ -1,9 +1,8 @@
-import pprint
-
 
 def constellation_mapper(stars: list[tuple[int, int]], dim: int) -> list[str]:
     star_set = set(stars)
     result = []
+
     for r in range(dim):
         row = ""
         for c in range(dim):
@@ -12,5 +11,4 @@ def constellation_mapper(stars: list[tuple[int, int]], dim: int) -> list[str]:
     return result
 
 
-result = constellation_mapper([(0, 0), (1, 1), (2, 2)], 3)
-print(result)
+print(constellation_mapper([(0, 0), (1, 1), (2, 2)], 3))
