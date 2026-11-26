@@ -9,6 +9,3 @@ def constellation_mapper(stars: list[tuple[int, int]], dim: int) -> list[str]:
             row += "*" if (r, c) in star_set else "."
         result.append(row)
     return result
-
-
-print(constellation_mapper([(0, 0), (1, 1), (2, 2)], 3))
