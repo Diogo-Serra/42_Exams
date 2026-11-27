@@ -1,24 +1,27 @@
 # List Intersection Finder
- 
+
+> File: `py_list_intersection_finder.py`
+
 ## Description
- 
+
 Write a function that finds the intersection of multiple sorted lists. It returns a new list containing the elements that appear in all input lists, in ascending order and without duplicates.
- 
+
 ## Function Signature
- 
+
 ```python
 def list_intersection_finder(lists: list[list[int]]) -> list[int]:
 ```
- 
+
 ## Rules
- 
+
 - Return only the elements that appear in **all** input lists.
 - The result must be sorted in ascending order.
 - The result must not contain duplicates.
 - Handle empty input and empty lists gracefully.
 - If any list is empty, the intersection is empty.
+
 ## Examples
- 
+
 | Call | Output |
 | --- | --- |
 | `list_intersection_finder([[1, 2, 3], [2, 3, 4], [2, 3, 5]])` | `[2, 3]` |
@@ -28,20 +31,30 @@ def list_intersection_finder(lists: list[list[int]]) -> list[int]:
 | `list_intersection_finder([])` | `[]` |
 | `list_intersection_finder([[1, 2, 3], []])` | `[]` |
 | `list_intersection_finder([[5]])` | `[5]` |
- 
+
 ## Solution
- 
+
+```python
+def list_intersection_finder(lists: list[list[int]]) -> list[int]:
+    result = set(lists[0]) if lists else set()
+    for i in lists[1:]:
+        result &= set(i)
+    return sorted(result)
+```
+
 ## Explanation
- 
+
 1. If no lists are provided, the intersection is empty.
 2. The first list is converted into a set, which removes its duplicates.
 3. For each remaining list, the set is reduced to the elements that also appear in that list. An empty list immediately empties the set, which covers the empty-list rule without a special case.
 4. If the set becomes empty at any point, the function stops early, since no further list can add elements back.
 5. The surviving elements are returned in ascending order.
+
 ## Complexity
- 
+
 - **Time:** O(N + k log k), where `N` is the total number of elements across all lists and `k` is the size of the result.
 - **Space:** O(m), where `m` is the length of the first list (the size of the working set).
+
 ## Notes
- 
+
 Because the input lists are sorted, a multi-pointer merge can compute the intersection in O(N) time without hashing or a final sort. The set-based version is shorter and easier to verify, and it also behaves correctly if an input list turns out not to be sorted.

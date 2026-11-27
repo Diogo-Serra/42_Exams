@@ -1,12 +1,3 @@
-<<<<<<< HEAD
-#1/usr/bin/env python3
-
-def number_base_converter(number: str, from_base: int, to_base: int) -> str:
-    pass
-
-
-print(number_base_converter("42", 10, 2))
-=======
 # Number Base Converter
 
 def number_base_converter(number: str, from_base: int, to_base: int) -> str:
@@ -25,4 +16,3 @@ def number_base_converter(number: str, from_base: int, to_base: int) -> str:
         result = digits[decimal % to_base] + result
         decimal //= to_base
     return result
->>>>>>> a66382fbd9b6d6d5246fc2d145130ff915a55382

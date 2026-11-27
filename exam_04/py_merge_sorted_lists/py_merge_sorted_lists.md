@@ -1,26 +1,29 @@
 # Merge Sorted Lists
- 
+
+> File: `py_merge_sorted_lists.py`
+
 ## Moulinette Rules and Constraints
- 
+
 The following built-ins and modules are **forbidden**:
- 
+
 - `sorted()`
 - `.sort()`
 - `heapq.merge()`
+
 Only permitted built-in functions may be used.
- 
+
 ## Description
- 
+
 Write a function that merges multiple sorted lists into a single sorted list, maintaining the sort order efficiently.
- 
+
 ## Function Signature
- 
+
 ```python
 def merge_sorted_lists(lists: list[list[int]]) -> list[int]:
 ```
- 
+
 ## Rules
- 
+
 - Take a list of sorted integer lists as input.
 - Return a single merged list in ascending order.
 - All input lists are guaranteed to be sorted in ascending order.
@@ -29,8 +32,9 @@ def merge_sorted_lists(lists: list[list[int]]) -> list[int]:
 - Return an empty list if no valid input is provided.
 - Handle negative numbers correctly.
 - Maintain optimal efficiency for large inputs.
+
 ## Edge Cases
- 
+
 | Case | Expected behaviour |
 | --- | --- |
 | Empty input list | Return an empty list |
@@ -38,9 +42,9 @@ def merge_sorted_lists(lists: list[list[int]]) -> list[int]:
 | Single list input | Return a copy of that list |
 | All duplicate elements | Preserve all instances |
 | Negative numbers | Respect ascending numeric order |
- 
+
 ## Examples
- 
+
 | Call | Output |
 | --- | --- |
 | `merge_sorted_lists([[1, 3, 5], [2, 4, 6]])` | `[1, 2, 3, 4, 5, 6]` |
@@ -51,24 +55,24 @@ def merge_sorted_lists(lists: list[list[int]]) -> list[int]:
 | `merge_sorted_lists([[]])` | `[]` |
 | `merge_sorted_lists([[-5, -1, 0], [-3, 2, 4]])` | `[-5, -3, -1, 0, 2, 4]` |
 | `merge_sorted_lists([[10], [10], [10]])` | `[10, 10, 10]` |
- 
+
 ## Solution
- 
+
 ```python
 def merge_two(left: list[int], right: list[int]) -> list[int]:
     """Merge two sorted lists into one sorted list.
- 
+
     Args:
         left: A list of integers sorted in ascending order.
         right: A list of integers sorted in ascending order.
- 
+
     Returns:
         A new sorted list containing all elements of both lists.
     """
     merged: list[int] = []
     i = 0
     j = 0
- 
+
     while i < len(left) and j < len(right):
         if left[i] <= right[j]:
             merged.append(left[i])
@@ -76,23 +80,23 @@ def merge_two(left: list[int], right: list[int]) -> list[int]:
         else:
             merged.append(right[j])
             j += 1
- 
+
     while i < len(left):
         merged.append(left[i])
         i += 1
     while j < len(right):
         merged.append(right[j])
         j += 1
- 
+
     return merged
- 
- 
+
+
 def merge_sorted_lists(lists: list[list[int]]) -> list[int]:
     """Merge multiple sorted lists into a single sorted list.
- 
+
     Args:
         lists: A list of integer lists, each sorted in ascending order.
- 
+
     Returns:
         A new list containing every element of every input list, in
         ascending order, with duplicates preserved. Returns an empty
@@ -101,7 +105,7 @@ def merge_sorted_lists(lists: list[list[int]]) -> list[int]:
     pending = [list(current) for current in lists if current]
     if not pending:
         return []
- 
+
     while len(pending) > 1:
         next_round: list[list[int]] = []
         for index in range(0, len(pending), 2):
@@ -110,22 +114,23 @@ def merge_sorted_lists(lists: list[list[int]]) -> list[int]:
             else:
                 next_round.append(pending[index])
         pending = next_round
- 
+
     return pending[0]
 ```
- 
+
 ## Explanation
- 
+
 1. Empty lists are discarded and the remaining lists are copied, so the original input is never modified and a single list input returns a copy.
 2. If nothing remains, the function returns an empty list.
 3. The lists are merged in rounds: neighbouring pairs are merged with a classic two-pointer merge, and an unpaired list is carried over to the next round.
 4. Each round halves the number of lists, so the process ends with a single sorted list.
 5. The comparison uses `<=`, so equal elements are all kept and the merge stays stable.
+
 ## Complexity
- 
+
 - **Time:** O(N log k), where `N` is the total number of elements and `k` is the number of non-empty lists. Each of the log k rounds touches every element once.
 - **Space:** O(N) for the merged output and the intermediate lists.
+
 ## Notes
- 
+
 Merging pairwise, rather than merging one list after another, is what keeps the complexity at O(N log k). Folding the lists into a single accumulated result would degrade to O(N · k) because the growing result is re-scanned at every step. The solution uses only `len`, `range`, `list` and `append`, so it stays within the forbidden-function restrictions.
- 
